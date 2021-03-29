@@ -37,7 +37,7 @@ jobs:
         env:
           AUTH_JSON: ${{ secrets.AUTH_JSON }}
         run: |
-          AUTH_JSON > auth.json
+          $AUTH_JSON > auth.json
           pocket-to-sqlite fetch pocket.db
           
       - name: Commit and push if it changed
