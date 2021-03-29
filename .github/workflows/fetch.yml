@@ -32,12 +32,17 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          
+       
+      - name: Create auth.json with auth info
+        shell: bash
+        env:
+          AUTH_JSON: ${{ secrets.AUTH_JSON }}
+        run: 'echo " $AUTH_JSON" > auth.json'
+        
       - name: Run pocket-to-sqlite
         env:
           AUTH_JSON: ${{ secrets.AUTH_JSON }}
         run: |
-          $AUTH_JSON > auth.json
           pocket-to-sqlite fetch pocket.db
           
       - name: Commit and push if it changed
