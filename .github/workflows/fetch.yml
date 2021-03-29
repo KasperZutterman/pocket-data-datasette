@@ -53,5 +53,14 @@ jobs:
           timestamp=$(date -u)
           git commit -m "auto: Latest data: ${timestamp}" || exit 0
           git push
+        
+      - name: Deploy Datasette using Vercel
+        env:
+          NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
+        run: |-
+          datasette publish vercel pocket.db \
+            --token $NOW_TOKEN \
+            --project pocket-data-datasette
+        
 
 
